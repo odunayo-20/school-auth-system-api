@@ -31,7 +31,7 @@ class StudentConfirmationRequest extends FormRequest
             'required',
             'string',
             Rule::unique('students', 'matric_number')
-                ->where(fn ($query) => $query->where('email', $this->input('email'))),
+            //     ->where(fn ($query) => $query->where('email', $this->input('email'))),
         ],
 
         'school_id' => 'required|exists:schools,id',

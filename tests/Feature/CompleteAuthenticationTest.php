@@ -29,6 +29,7 @@ describe('Authentication System', function () {
                 'name' => 'Existing User',
                 'email' => 'existing@example.com',
                 'password' => Hash::make('password123'),
+                'role' => 'student',
             ]);
 
             $response = $this->postJson('/api/auth/register', [
@@ -63,6 +64,7 @@ describe('Authentication System', function () {
                 'name' => 'John Doe',
                 'email' => 'john@example.com',
                 'password' => Hash::make('password123'),
+                'role' => 'student',
                 'email_verification_code' => Hash::make($code),
                 'email_verification_code_expires_at' => Carbon::now()->addMinutes(15),
             ]);
@@ -81,6 +83,7 @@ describe('Authentication System', function () {
                 'name' => 'John Doe',
                 'email' => 'john@example.com',
                 'password' => Hash::make('password123'),
+                'role' => 'student',
                 'email_verification_code' => Hash::make('123456'),
                 'email_verification_code_expires_at' => Carbon::now()->addMinutes(15),
             ]);
@@ -99,6 +102,7 @@ describe('Authentication System', function () {
                 'name' => 'John Doe',
                 'email' => 'john@example.com',
                 'password' => Hash::make('password123'),
+                'role' => 'student',
                 'email_verification_code' => Hash::make('123456'),
                 'email_verification_code_expires_at' => Carbon::now()->subMinutes(1),
             ]);
@@ -121,6 +125,7 @@ describe('Authentication System', function () {
                 'name' => 'John Doe',
                 'email' => 'john@example.com',
                 'password' => Hash::make('password123'),
+                'role' => 'student',
                 'email_verified_at' => Carbon::now(),
             ]);
 
@@ -137,6 +142,7 @@ describe('Authentication System', function () {
                 'name' => 'John Doe',
                 'email' => 'john@example.com',
                 'password' => Hash::make('password123'),
+                'role' => 'student',
             ]);
 
             $response = $this->postJson('/api/auth/request-signin-code', [
@@ -153,6 +159,7 @@ describe('Authentication System', function () {
                 'name' => 'John Doe',
                 'email' => 'john@example.com',
                 'password' => Hash::make('password123'),
+                'role' => 'student',
                 'email_verified_at' => Carbon::now(),
                 'signin_code' => Hash::make($code),
                 'signin_code_expires_at' => Carbon::now()->addMinutes(10),
@@ -172,6 +179,7 @@ describe('Authentication System', function () {
                 'name' => 'John Doe',
                 'email' => 'john@example.com',
                 'password' => Hash::make('password123'),
+                'role' => 'student',
                 'email_verified_at' => Carbon::now(),
                 'signin_code' => Hash::make('654321'),
                 'signin_code_expires_at' => Carbon::now()->addMinutes(10),
@@ -189,10 +197,12 @@ describe('Authentication System', function () {
     describe('Login', function () {
 
         it('allows verified users to login with correct credentials', function () {
+            // Use admin role — the login endpoint requires student confirmation for student role
             User::create([
                 'name' => 'John Doe',
                 'email' => 'john@example.com',
                 'password' => Hash::make('password123'),
+                'role' => 'admin',
                 'email_verified_at' => Carbon::now(),
             ]);
 
@@ -210,6 +220,7 @@ describe('Authentication System', function () {
                 'name' => 'John Doe',
                 'email' => 'john@example.com',
                 'password' => Hash::make('password123'),
+                'role' => 'student',
                 'email_verified_at' => Carbon::now(),
             ]);
 
@@ -226,6 +237,7 @@ describe('Authentication System', function () {
                 'name' => 'John Doe',
                 'email' => 'john@example.com',
                 'password' => Hash::make('password123'),
+                'role' => 'student',
             ]);
 
             $response = $this->postJson('/api/auth/login', [
@@ -241,10 +253,12 @@ describe('Authentication System', function () {
     describe('Protected Routes', function () {
 
         it('authenticated user can view profile', function () {
+            // /api/auth/me is behind role:admin middleware
             $user = User::create([
                 'name' => 'John Doe',
                 'email' => 'john@example.com',
                 'password' => Hash::make('password123'),
+                'role' => 'admin',
                 'email_verified_at' => Carbon::now(),
             ]);
 
@@ -254,14 +268,16 @@ describe('Authentication System', function () {
                 ->getJson('/api/auth/me');
 
             expect($response->status())->toBe(200);
-            expect($response->json('user.email'))->toBe('john@example.com');
+            expect($response->json('data.email'))->toBe('john@example.com');
         });
 
         it('authenticated user can logout', function () {
+            // /api/auth/logout is behind role:admin middleware
             $user = User::create([
                 'name' => 'John Doe',
                 'email' => 'john@example.com',
                 'password' => Hash::make('password123'),
+                'role' => 'admin',
                 'email_verified_at' => Carbon::now(),
             ]);
 
