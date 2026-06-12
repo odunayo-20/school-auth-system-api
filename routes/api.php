@@ -23,6 +23,9 @@ Route::prefix('auth')->group(function () {
     Route::post('/signin-with-code', [AuthController::class, 'signInWithCode']);
     Route::post('/confirm-student', [ConfirmStudentController::class, 'confirmStudent']);
     Route::post('/verify-identity', [VerifyStudentController::class, 'verifyIdentity']);
+    Route::post('/forgot-password', [\App\Http\Controllers\Auth\PasswordResetController::class, 'forgotPassword']);
+    Route::post('/verify-reset-code', [\App\Http\Controllers\Auth\PasswordResetController::class, 'verifyResetCode']);
+    Route::post('/reset-password', [\App\Http\Controllers\Auth\PasswordResetController::class, 'resetPassword']);
 });
 
 // Public role routes
