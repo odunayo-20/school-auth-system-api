@@ -41,11 +41,14 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 // Protected routes
-Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
+Route::middleware(['auth:sanctum'])->group(function () {
     Route::prefix('auth')->group(function () {
-        Route::post('/logout', [AuthController::class, 'logout']);
+        Route::post('/logout', [LoginController::class, 'logout']);
         Route::get('/me', [AuthController::class, 'me']);
     });
+});
+
+Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
 
     Route::prefix('admin')->group(function () {
         // Admin routes here (e.g. user management)
@@ -56,10 +59,6 @@ Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
 
         // Role management for admins
         Route::put('/roles/{user_id}', [RoleController::class, 'updateUserRole']);
-    });
-
-    Route::get('/user', function (Request $request) {
-        return UserResource::make($request->user());
     });
 });
 

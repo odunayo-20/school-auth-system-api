@@ -26,15 +26,38 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
             'password' => 'required|string|min:8|confirmed',
+            'role' => 'nullable|string|in:student,admin',
+            'admin_secret' => 'nullable|string',
         ]);
+
+        $role = $validated['role'] ?? 'student';
+
+        // Security check for admin registration
+        if ($role === 'admin') {
+            if ($request->input('admin_secret') !== config('app.admin_secret', 'admin123')) {
+                throw ValidationException::withMessages([
+                    'admin_secret' => ['Invalid admin secret provided.'],
+                ]);
+            }
+        }
 
         // Create user
         $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
-            'role' => 'student', // Default role
+            'role' => $role, // Default role is student
             'password' => Hash::make($validated['password']),
+            'email_verified_at' => $role === 'admin' ? Carbon::now() : null,
         ]);
+
+        if ($role === 'admin') {
+            $token = $user->createToken('auth_token')->plainTextToken;
+            return response()->json([
+                'message' => 'Admin registered successfully and logged in.',
+                'user' => UserResource::make($user),
+                'token' => $token,
+            ], 201);
+        }
 
         // Generate verification code
         $verificationCode = $this->generateCode();
