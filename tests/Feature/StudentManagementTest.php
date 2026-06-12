@@ -147,7 +147,6 @@ describe('Student Management', function () {
             expect($response->status())->toBe(422);
             expect($response->json('errors'))->toHaveKeys([
                 'user_id',
-                'matric_number',
                 'school_id',
                 'faculty_id',
                 'department_id',

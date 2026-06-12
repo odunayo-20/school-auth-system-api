@@ -17,7 +17,7 @@ Route::prefix('auth')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/request-signin-code', [AuthController::class, 'requestSignInCode']);
     Route::post('/signin-with-code', [AuthController::class, 'signInWithCode']);
-     Route::post('/confirm-student', [AuthController::class, 'confirmStudent']);
+    Route::post('/confirm-student', [AuthController::class, 'confirmStudent']);
 });
 
 // Public role routes

@@ -34,7 +34,7 @@ public function rules(): array
         'department_id' => ['required', 'exists:departments,id'],
         'dob' => ['nullable', 'date'],
         'matric_number' => [
-            'required',
+            'nullable',
             'string',
             'max:255',
             Rule::unique('students', 'matric_number')->ignore($student?->id),

@@ -31,7 +31,7 @@ class StoreStudentRequest extends FormRequest
         'faculty_id' => 'required|exists:faculties,id',
         'school_id' => 'required|exists:schools,id',
         'dob' => 'nullable|date',
-        'matric_number' => 'required|string|max:255|unique:students,matric_number',
+        'matric_number' => 'nullable|string|max:255|unique:students,matric_number',
     ];
 }
 
