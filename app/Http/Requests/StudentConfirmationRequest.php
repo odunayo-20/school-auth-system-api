@@ -28,7 +28,7 @@ class StudentConfirmationRequest extends FormRequest
         'phone' => 'required|string|max:20',
 
         'matric_number' => [
-            'required',
+            'nullable',
             'string',
             Rule::unique('students', 'matric_number')
             //     ->where(fn ($query) => $query->where('email', $this->input('email'))),
@@ -38,7 +38,7 @@ class StudentConfirmationRequest extends FormRequest
         'faculty_id' => 'required|exists:faculties,id',
         'department_id' => 'required|exists:departments,id',
         'level' => 'nullable|string|max:50',
-        'dob' => 'nullable|date',
+        'dob' => 'required|date',
     ];
 }
 
@@ -53,7 +53,6 @@ class StudentConfirmationRequest extends FormRequest
             'email.email' => 'Email must be valid.',
             'email.exists' => 'Email not found. Please register first.',
             'phone.required' => 'Phone number is required.',
-            'matric_number.required' => 'Matric number is required.',
             'matric_number.unique' => 'This matric number is already taken.',
             'school_id.required' => 'School is required.',
             'school_id.exists' => 'Selected school does not exist.',
@@ -61,6 +60,8 @@ class StudentConfirmationRequest extends FormRequest
             'faculty_id.exists' => 'Selected faculty does not exist.',
             'department_id.required' => 'Department is required.',
             'department_id.exists' => 'Selected department does not exist.',
+            'dob.required' => 'Date of birth is required.',
+            'dob.date' => 'Date of birth must be a valid date.',
         ];
     }
 }

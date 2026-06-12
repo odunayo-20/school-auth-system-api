@@ -24,7 +24,19 @@ class UpdateFacultyRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
+            'code' => 'nullable',
             'school_id' => 'required|exists:schools,id',
+        ];
+    }
+
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Faculty name is required.',
+            'name.max' => 'Faculty name cannot exceed 255 characters.',
+            'school_id.required' => 'School is required.',
+            'school_id.exists' => 'Selected school does not exist.',
         ];
     }
 }

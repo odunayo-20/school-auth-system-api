@@ -32,7 +32,7 @@ public function rules(): array
             'faculty_id' => ['required', 'exists:faculties,id'],
         'phone' => ['nullable', 'string', 'max:20'],
         'department_id' => ['required', 'exists:departments,id'],
-        'dob' => ['nullable', 'date'],
+        'dob' => ['required', 'date'],
         'matric_number' => [
             'nullable',
             'string',
@@ -45,9 +45,13 @@ public function rules(): array
 public function messages(): array
 {
     return [
-        'email.unique' => 'The email has already been taken.',
+        'dob.required' => 'Date of birth is required.',
+        'dob.date' => 'Date of birth must be a valid date.',
         'matric_number.unique' => 'The matric number has already been taken.',
         'department_id.exists' => 'The selected department does not exist.',
+        'faculty_id.exists' => 'The selected faculty does not exist.',
+        'school_id.exists' => 'The selected school does not exist.',
+        'user_id.exists' => 'The selected user does not exist.',
     ];
 }
 }

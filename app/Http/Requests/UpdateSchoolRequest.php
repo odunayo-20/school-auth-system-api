@@ -27,4 +27,15 @@ class UpdateSchoolRequest extends FormRequest
             'code' => 'required|string|max:255|unique:schools,code,' . $this->route('school')->id,
         ];
     }
+
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'School name is required.',
+            'name.max' => 'School name cannot exceed 255 characters.',
+            'code.required' => 'School code is required.',
+            'code.unique' => 'School code already exists.',
+        ];
+    }
 }

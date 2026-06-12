@@ -27,4 +27,15 @@ class StoreSchoolRequest extends FormRequest
             'code' => 'required|string|max:255|unique:schools,code',
         ];
     }
+
+
+    public function messages(): array
+    {
+        return parent::messages() + [
+            'name.required' => 'School name is required.',
+            'name.max' => 'School name cannot exceed 255 characters.',
+            'code.required' => 'School code is required.',
+            'code.unique' => 'School code already exists.',
+        ];
+    }
 }

@@ -24,7 +24,19 @@ class UpdateDepartmentRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
+            'code' => 'nullable',
             'faculty_id' => 'required|exists:faculties,id',
+        ];
+    }
+
+
+    public function messages()
+    {
+        return parent::messages() + [
+            'name.required' => 'Department name is required.',
+            'name.max' => 'Department name cannot exceed 255 characters.',
+            'faculty_id.required' => 'Faculty is required.',
+            'faculty_id.exists' => 'Selected faculty does not exist.',
         ];
     }
 }

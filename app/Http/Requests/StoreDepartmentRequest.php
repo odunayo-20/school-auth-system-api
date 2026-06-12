@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Override;
 
 class StoreDepartmentRequest extends FormRequest
 {
@@ -24,7 +25,19 @@ class StoreDepartmentRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
+            'code' => 'nullable',
             'faculty_id' => 'required|exists:faculties,id',
+        ];
+    }
+
+    #[Override]
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Department name is required.',
+            'name.max' => 'Department name cannot exceed 255 characters.',
+            'faculty_id.required' => 'Faculty is required.',
+            'faculty_id.exists' => 'Selected faculty does not exist.',
         ];
     }
 }

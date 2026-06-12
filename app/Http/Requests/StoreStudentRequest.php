@@ -30,7 +30,7 @@ class StoreStudentRequest extends FormRequest
         'department_id' => 'required|exists:departments,id',
         'faculty_id' => 'required|exists:faculties,id',
         'school_id' => 'required|exists:schools,id',
-        'dob' => 'nullable|date',
+        'dob' => 'required|date',
         'matric_number' => 'nullable|string|max:255|unique:students,matric_number',
     ];
 }
@@ -38,11 +38,14 @@ class StoreStudentRequest extends FormRequest
 public function messages(): array
 {
     return [
+        'user_id.exists' => 'The selected user does not exist.',
         'phone.unique' => 'The phone number has already been taken.',
         'matric_number.unique' => 'The matric number has already been taken.',
         'department_id.exists' => 'The selected department does not exist.',
         'faculty_id.exists' => 'The selected faculty does not exist.',
         'school_id.exists' => 'The selected school does not exist.',
+        'dob.required' => 'Date of birth is required.',
+        'dob.date' => 'Date of birth must be a valid date.',
     ];
 }
 }

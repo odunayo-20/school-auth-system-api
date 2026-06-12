@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StudentConfirmationRequest;
+use App\Http\Resources\StudentResource;
 use App\Http\Resources\UserResource;
 use App\Mail\SendSignInCode;
 use App\Mail\SendVerificationCode;
@@ -291,7 +292,7 @@ class AuthController extends Controller
         return response()->json([
             'message' => 'Student profile confirmed successfully. You can now login.',
             'user' => UserResource::make($user),
-            'student' => $student,
+            'student' => StudentResource::make($student),
         ], 201);
     }
 

@@ -18,6 +18,7 @@ class Student extends Model
         'department_id',
         'faculty_id',
         'school_id',
+        'dob',
         'matric_number',
         'status',
         'confirmed_at',
@@ -50,19 +51,19 @@ class Student extends Model
         $schoolCode = \App\Models\School::find($student->school_id)?->code ?? 'SCH';
         $facultyCode = \App\Models\Faculty::find($student->faculty_id)?->code ?? 'FAC';
         $departmentCode = \App\Models\Department::find($student->department_id)?->code ?? 'DEP';
-        
+
         $prefix = $schoolCode . $facultyCode . $departmentCode;
 
         $lastStudent = static::where('department_id', $student->department_id)
             ->where('matric_number', 'like', $prefix . '%')
             ->orderBy('id', 'desc')
             ->first();
-            
+
         $sequence = 1;
         if ($lastStudent && preg_match('/(\d+)$/', $lastStudent->matric_number, $matches)) {
             $sequence = intval($matches[1]) + 1;
         }
-        
+
         return sprintf('%s%04d', $prefix, $sequence);
     }
 
