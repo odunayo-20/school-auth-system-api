@@ -1,6 +1,10 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Auth\ConfirmStudentController;
+use App\Http\Controllers\Auth\EmailVerificationController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\VerifyStudentController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\RoleController;
@@ -13,11 +17,12 @@ use Illuminate\Support\Facades\Route;
 // Public auth routes
 Route::prefix('auth')->group(function () {
     Route::post('/register', [AuthController::class, 'register']);
-    Route::post('/verify-email', [AuthController::class, 'verifyEmail']);
-    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/verify-email', [EmailVerificationController::class, 'verifyEmail']);
+    Route::post('/login', [LoginController::class, 'login']);
     Route::post('/request-signin-code', [AuthController::class, 'requestSignInCode']);
     Route::post('/signin-with-code', [AuthController::class, 'signInWithCode']);
-    Route::post('/confirm-student', [AuthController::class, 'confirmStudent']);
+    Route::post('/confirm-student', [ConfirmStudentController::class, 'confirmStudent']);
+    Route::post('/verify-identity', [VerifyStudentController::class, 'verifyIdentity']);
 });
 
 // Public role routes

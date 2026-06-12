@@ -36,6 +36,7 @@ class StudentResource extends JsonResource
             ],
             'dob' => $this->dob,
             'matric_number' => $this->matric_number,
+            'confirmed_at' => $this->confirmed_at?->toDateTimeString(),
             'created_at' => $this->created_at?->toDateTimeString(),
 
         ];

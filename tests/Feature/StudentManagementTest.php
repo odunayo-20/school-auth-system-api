@@ -54,6 +54,7 @@ describe('Student Management', function () {
             'school_id'     => $school->id,
             'faculty_id'    => $faculty->id,
             'department_id' => $department->id,
+            'dob'           => '2000-01-01',
             'confirmed_at'  => now(),
         ]);
     }
@@ -130,6 +131,7 @@ describe('Student Management', function () {
                 'school_id'     => $school->id,
                 'faculty_id'    => $faculty->id,
                 'department_id' => $department->id,
+                'dob'           => '2000-01-01',
             ]);
 
             expect($response->status())->toBe(201);
@@ -217,7 +219,7 @@ describe('Student Management', function () {
             expect($response->json('errors.school_id'))->not->toBeEmpty();
         });
 
-        it('allows optional phone and dob fields', function () {
+        it('allows optional phone field', function () {
             $admin = stdAdmin();
             $setup = stdSetup();
             [$school, $faculty, $department] = $setup;
@@ -229,7 +231,8 @@ describe('Student Management', function () {
                 'school_id'     => $school->id,
                 'faculty_id'    => $faculty->id,
                 'department_id' => $department->id,
-                // phone and dob intentionally omitted
+                'dob'           => '2000-01-01',
+                // phone intentionally omitted
             ]);
 
             expect($response->status())->toBe(201);
@@ -305,6 +308,7 @@ describe('Student Management', function () {
                 'school_id'     => $school->id,
                 'faculty_id'    => $faculty->id,
                 'department_id' => $department->id,
+                'dob'           => '2000-01-01',
             ]);
 
             expect($response->status())->toBe(200);

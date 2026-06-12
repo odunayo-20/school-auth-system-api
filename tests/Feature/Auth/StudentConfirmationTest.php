@@ -66,6 +66,7 @@ describe('Student Confirmation', function () {
             'school_id' => $this->school->id,
             'faculty_id' => $this->faculty->id,
             'department_id' => $this->department->id,
+            'dob' => '2000-01-01',
         ]);
 
         expect($response->status())->toBe(422);
@@ -88,6 +89,7 @@ describe('Student Confirmation', function () {
             'school_id' => $this->school->id,
             'faculty_id' => $this->faculty->id,
             'department_id' => $this->department->id,
+            'dob' => '2000-01-01',
         ]);
 
         expect($response->status())->toBe(422);
@@ -130,6 +132,7 @@ describe('Student Confirmation', function () {
             'school_id' => $this->school->id,
             'faculty_id' => $this->faculty->id,
             'department_id' => $this->department->id,
+            'dob' => '2000-01-01',
         ]);
 
         expect($response->status())->toBe(422);
@@ -164,6 +167,7 @@ describe('Student Confirmation', function () {
             'school_id' => $this->school->id,
             'faculty_id' => $this->faculty->id,
             'department_id' => $this->department->id,
+            'dob' => '2000-01-01',
         ]);
 
         expect($response->status())->toBe(422);
@@ -184,7 +188,7 @@ describe('Student Confirmation', function () {
         ]);
 
         expect($response->status())->toBe(422);
-        expect($response->json('errors'))->toHaveKeys(['phone', 'matric_number', 'school_id', 'faculty_id', 'department_id']);
+        expect($response->json('errors'))->toHaveKeys(['phone', 'school_id', 'faculty_id', 'department_id', 'dob']);
     });
 
     it('validates that school, faculty, and department exist', function () {
@@ -203,6 +207,7 @@ describe('Student Confirmation', function () {
             'school_id' => 9999, // Non-existent
             'faculty_id' => $this->faculty->id,
             'department_id' => $this->department->id,
+            'dob' => '2000-01-01',
         ]);
 
         expect($response->status())->toBe(422);
