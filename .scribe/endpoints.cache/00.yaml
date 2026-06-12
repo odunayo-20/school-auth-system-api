@@ -59,10 +59,36 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
+      role:
+        custom: []
+        name: role
+        description: ''
+        required: false
+        example: student
+        type: string
+        enumValues:
+          - student
+          - admin
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      admin_secret:
+        custom: []
+        name: admin_secret
+        description: ''
+        required: false
+        example: consequatur
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
     cleanBodyParameters:
       name: vmqeopfuudtdsufvyvddq
       email: kunde.eloisa@example.com
       password: '4[*UyPJ"}6'
+      role: student
+      admin_secret: consequatur
     fileParameters: []
     responses: []
     responseFields: []
@@ -151,9 +177,20 @@ endpoints:
       email:
         custom: []
         name: email
-        description: 'Must be a valid email address.'
-        required: true
+        description: 'This field is required when <code>matric_number</code> is not present.'
+        required: false
         example: qkunze@example.com
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      matric_number:
+        custom: []
+        name: matric_number
+        description: 'This field is required when <code>email</code> is not present.'
+        required: false
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -172,6 +209,7 @@ endpoints:
         deprecated: false
     cleanBodyParameters:
       email: qkunze@example.com
+      matric_number: consequatur
       password: 'O[2UZ5ij-e/dl4m{o,'
     fileParameters: []
     responses: []
@@ -327,12 +365,12 @@ endpoints:
         custom: []
         name: matric_number
         description: ''
-        required: true
+        required: false
         example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
-        nullable: false
+        nullable: true
         deprecated: false
       school_id:
         custom: []
@@ -382,12 +420,12 @@ endpoints:
         custom: []
         name: dob
         description: 'Must be a valid date.'
-        required: false
-        example: '2026-06-08T21:15:21'
+        required: true
+        example: '2026-06-12T14:44:55'
         type: string
         enumValues: []
         exampleWasSpecified: false
-        nullable: true
+        nullable: false
         deprecated: false
     cleanBodyParameters:
       email: qkunze@example.com
@@ -397,7 +435,275 @@ endpoints:
       faculty_id: consequatur
       department_id: consequatur
       level: mqeopfuudtdsufvyvddqa
-      dob: '2026-06-08T21:15:21'
+      dob: '2026-06-12T14:44:55'
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/auth/verify-identity
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Verify student identity using matric_number, dob, and school_id'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      matric_number:
+        custom: []
+        name: matric_number
+        description: ''
+        required: true
+        example: consequatur
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      dob:
+        custom: []
+        name: dob
+        description: 'Must be a valid date in the format <code>Y-m-d</code>.'
+        required: true
+        example: '2026-06-12'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      school_id:
+        custom: []
+        name: school_id
+        description: 'The <code>id</code> of an existing record in the schools table.'
+        required: true
+        example: consequatur
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      matric_number: consequatur
+      dob: '2026-06-12'
+      school_id: consequatur
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/auth/forgot-password
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Request a password reset code'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      email:
+        custom: []
+        name: email
+        description: 'This field is required when <code>matric_number</code> is not present.'
+        required: false
+        example: qkunze@example.com
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      matric_number:
+        custom: []
+        name: matric_number
+        description: 'This field is required when <code>email</code> is not present.'
+        required: false
+        example: consequatur
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      email: qkunze@example.com
+      matric_number: consequatur
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/auth/verify-reset-code
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Verify the 6-digit reset code'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      email:
+        custom: []
+        name: email
+        description: 'This field is required when <code>matric_number</code> is not present.'
+        required: false
+        example: qkunze@example.com
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      matric_number:
+        custom: []
+        name: matric_number
+        description: 'This field is required when <code>email</code> is not present.'
+        required: false
+        example: consequatur
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      code:
+        custom: []
+        name: code
+        description: 'Must be 6 digits.'
+        required: true
+        example: '810798'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      email: qkunze@example.com
+      matric_number: consequatur
+      code: '810798'
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/auth/reset-password
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Reset the password'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      email:
+        custom: []
+        name: email
+        description: 'This field is required when <code>matric_number</code> is not present.'
+        required: false
+        example: qkunze@example.com
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      matric_number:
+        custom: []
+        name: matric_number
+        description: 'This field is required when <code>email</code> is not present.'
+        required: false
+        example: consequatur
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      code:
+        custom: []
+        name: code
+        description: 'Must be 6 digits.'
+        required: true
+        example: '810798'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      password:
+        custom: []
+        name: password
+        description: 'Must be at least 8 characters.'
+        required: true
+        example: '[2UZ5ij-e/dl4'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      email: qkunze@example.com
+      matric_number: consequatur
+      code: '810798'
+      password: '[2UZ5ij-e/dl4'
     fileParameters: []
     responses: []
     responseFields: []
@@ -726,23 +1032,23 @@ endpoints:
         custom: []
         name: dob
         description: 'Must be a valid date.'
-        required: false
-        example: '2026-06-08T21:15:21'
+        required: true
+        example: '2026-06-12T14:44:56'
         type: string
         enumValues: []
         exampleWasSpecified: false
-        nullable: true
+        nullable: false
         deprecated: false
       matric_number:
         custom: []
         name: matric_number
         description: 'Must not be greater than 255 characters.'
-        required: true
+        required: false
         example: mqeopfuudtdsufvyvddqa
         type: string
         enumValues: []
         exampleWasSpecified: false
-        nullable: false
+        nullable: true
         deprecated: false
     cleanBodyParameters:
       user_id: consequatur
@@ -750,7 +1056,7 @@ endpoints:
       department_id: consequatur
       faculty_id: consequatur
       school_id: consequatur
-      dob: '2026-06-08T21:15:21'
+      dob: '2026-06-12T14:44:56'
       matric_number: mqeopfuudtdsufvyvddqa
     fileParameters: []
     responses: []
@@ -907,23 +1213,23 @@ endpoints:
         custom: []
         name: dob
         description: 'Must be a valid date.'
-        required: false
-        example: '2026-06-08T21:15:21'
+        required: true
+        example: '2026-06-12T14:44:56'
         type: string
         enumValues: []
         exampleWasSpecified: false
-        nullable: true
+        nullable: false
         deprecated: false
       matric_number:
         custom: []
         name: matric_number
         description: 'Must not be greater than 255 characters.'
-        required: true
+        required: false
         example: mqeopfuudtdsufvyvddqa
         type: string
         enumValues: []
         exampleWasSpecified: false
-        nullable: false
+        nullable: true
         deprecated: false
     cleanBodyParameters:
       user_id: consequatur
@@ -931,7 +1237,7 @@ endpoints:
       faculty_id: consequatur
       phone: mqeopfuudtdsufvyv
       department_id: consequatur
-      dob: '2026-06-08T21:15:21'
+      dob: '2026-06-12T14:44:56'
       matric_number: mqeopfuudtdsufvyvddqa
     fileParameters: []
     responses: []
@@ -1197,6 +1503,17 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
+      code:
+        custom: []
+        name: code
+        description: ''
+        required: false
+        example: null
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
       school_id:
         custom: []
         name: school_id
@@ -1264,6 +1581,17 @@ endpoints:
         enumValues: []
         exampleWasSpecified: false
         nullable: false
+        deprecated: false
+      code:
+        custom: []
+        name: code
+        description: ''
+        required: false
+        example: null
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
         deprecated: false
       school_id:
         custom: []
@@ -1404,6 +1732,17 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
+      code:
+        custom: []
+        name: code
+        description: ''
+        required: false
+        example: null
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
       faculty_id:
         custom: []
         name: faculty_id
@@ -1471,6 +1810,17 @@ endpoints:
         enumValues: []
         exampleWasSpecified: false
         nullable: false
+        deprecated: false
+      code:
+        custom: []
+        name: code
+        description: ''
+        required: false
+        example: null
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
         deprecated: false
       faculty_id:
         custom: []
@@ -1587,7 +1937,7 @@ endpoints:
         name: role
         description: ''
         required: true
-        example: student
+        example: admin
         type: string
         enumValues:
           - admin
@@ -1597,79 +1947,7 @@ endpoints:
         deprecated: false
     cleanBodyParameters:
       user_id: consequatur
-      role: student
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-  -
-    custom: []
-    httpMethods:
-      - GET
-    uri: api/user
-    metadata:
-      custom: []
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      deprecated: false
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses:
-      -
-        custom: []
-        status: 401
-        content: '{"message":"Unauthenticated."}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: 'http://localhost:3000'
-          access-control-allow-credentials: 'true'
-        description: null
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-  -
-    custom: []
-    httpMethods:
-      - POST
-    uri: api/student/logout
-    metadata:
-      custom: []
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Logout (revoke token)'
-      description: ''
-      authenticated: false
-      deprecated: false
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
+      role: admin
     fileParameters: []
     responses: []
     responseFields: []
